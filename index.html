@@ -1,14 +1,13 @@
-<form action="/register" method="POST">
-  <label for="username">Tên đăng nhập:</label>
-  <input type="text" id="username" name="username" required>
-  
-  <label for="password">Mật khẩu:</label>
-  <input type="password" id="password" name="password" required>
-  
-  <label for="confirm_password">Xác nhận mật khẩu:</label>
-  <input type="password" id="confirm_password" name="confirm_password" required>
-  
-  <!-- CAPTCHA nếu cần -->
-  
-  <button type="submit">Đăng ký</button>
-</form>
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html>
+<head><title>Đăng ký tài khoản Minecraft</title></head>
+<body>
+  <h2>Đăng ký Minecraft</h2>
+  <form action="/register" method="POST">
+    <input name="username" placeholder="Tên Minecraft" required><br>
+    <input name="password" type="password" placeholder="Mật khẩu" required><br>
+    <button type="submit">Đăng ký</button>
+  </form>
+</body>
+</html>
