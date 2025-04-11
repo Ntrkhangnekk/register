@@ -3,72 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Đăng ký tài khoản Minecraft 4G Smp</title>
+  <title>Đăng ký Minecraft</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
   <style>
     body {
-      margin: 0; font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #141e30, #243b55);
-      display: flex; align-items: center; justify-content: center;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to bottom right, #83a4d4, #b6fbff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
       height: 100vh;
+      margin: 0;
     }
-    .form-container {
-      background: rgba(255,255,255,0.05);
-      padding: 30px; border-radius: 20px;
-      box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-      backdrop-filter: blur( 8px );
-      color: #fff; width: 300px;
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 320px;
     }
     input {
-      width: 100%; padding: 10px;
-      margin: 10px 0; border: none;
-      border-radius: 10px; background: #ffffff10;
-      color: #fff;
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
     }
     button {
-      width: 100%; padding: 10px;
-      border: none; border-radius: 10px;
-      background-color: #00c6ff; color: white;
-      font-weight: bold; cursor: pointer;
-      transition: background 0.3s;
+      width: 100%;
+      padding: 12px;
+      background: #4CAF50;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
     }
     button:hover {
-      background-color: #0072ff;
+      background: #45a049;
     }
-    .message {
+    .msg {
       margin-top: 15px;
-      text-align: center;
       font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <form class="form-container" onsubmit="submitForm(event)">
-    <h2>Đăng ký tài khoản Minecraft cho 4G Smp uwu </h2>
+  <div class="container">
+    <h2>Đăng ký tài khoản 4G smp</h2>
     <input type="text" id="username" placeholder="Tên đăng nhập" required />
     <input type="password" id="password" placeholder="Mật khẩu" required />
-    <input type="password" id="confirm" placeholder="Xác nhận mật khẩu" required />
-    <button type="submit">Đăng ký</button>
-    <div class="message" id="msg"></div>
-  </form>
+    <button onclick="register()">Đăng ký</button>
+    <div class="msg" id="message"></div>
+  </div>
 
-  <script>
-    async function submitForm(e) {
-      e.preventDefault();
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
-      const confirm = document.getElementById("confirm").value;
-      const msg = document.getElementById("msg");
-
-      const res = await fetch("https://your-backend.onrender.com/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password, confirm })
-      });
-
-      const text = await res.text();
-      msg.innerText = text;
-      msg.style.color = res.ok ? "#00ff99" : "#ff5555";
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
