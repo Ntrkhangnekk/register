@@ -1,33 +1,27 @@
 const express = require('express');
 const fs = require('fs');
-const path = require('path');
-const crypto = require('crypto');
-
+const cors = require('cors');
 const app = express();
-const PORT = 3000;
-const ACC_FILE = './accounts.json';
+app.use(cors());
+app.use(express.json());
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+const FILE_PATH = './register.json';
+let users = fs.existsSync(FILE_PATH) ? JSON.parse(fs.readFileSync(FILE_PATH)) : {};
 
 app.post('/register', (req, res) => {
-  const { username, password } = req.body;
-  if (!username || !password) return res.send("Thiếu thông tin!");
+  const { username, password, confirm } = req.body;
 
-  const hashed = crypto.createHash('sha256').update(password).digest('hex');
+  if (!username || !password || !confirm)
+    return res.status(400).send('Vui lòng điền đầy đủ thông tin!');
+  if (password !== confirm)
+    return res.status(400).send('Mật khẩu không trùng khớp!');
+  if (users[username])
+    return res.status(409).send('Tài khoản đã tồn tại!');
 
-  let db = {};
-  if (fs.existsSync(ACC_FILE)) {
-    db = JSON.parse(fs.readFileSync(ACC_FILE));
-  }
-
-  if (db[username]) return res.send("Tài khoản đã tồn tại!");
-
-  db[username] = hashed;
-  fs.writeFileSync(ACC_FILE, JSON.stringify(db, null, 2));
-  res.send("Đăng ký thành công! Giờ vào Minecraft gõ: /login mật_khẩu");
+  users[username] = { password };
+  fs.writeFileSync(FILE_PATH, JSON.stringify(users, null, 2));
+  res.send('Đăng ký thành công!');
 });
 
-app.listen(PORT, () => {
-  console.log(`Server chạy tại http://localhost:${PORT}`);
-});
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`API đang chạy tại http://localhost:${PORT}`));
